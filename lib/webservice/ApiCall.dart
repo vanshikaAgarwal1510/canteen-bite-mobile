@@ -1,6 +1,8 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:canteen_bite_mobile/webservice/response/InitResponse.dart';
+import 'package:canteen_bite_mobile/webservice/response/OTPAuthenticateResponse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -14,7 +16,7 @@ import '../utils/network/NetworkUtil.dart';
 
 
 class ApiCall {
-  final String BASEURL = "http://localhost:5123/api/";
+  final String BASEURL = "http://10.0.2.2:5123/api/";
   final String BASEURL_GOOGLE_API = "https://maps.googleapis.com/maps/api/";
 
   Future<dynamic> callAPI(String url, Map<String, dynamic> request) async {
@@ -127,12 +129,23 @@ class ApiCall {
     }
   }
 
- /* Future<InitResponse> init (Map<String, dynamic> request) async {
-    var response = await callAPI(("auth"), request);
-    return (InitResponse.fromJson(response));
-    }*/
+  Future<String> sendOtp (Map<String, dynamic> request) async {
+    var response = await callAPI(("login/send-otp"), request);
+    return response['data']['code'];
+    }
+  Future<OTPAuthenticateResponse> authenticateOTP (Map<String, dynamic> request) async {
+    var response = await callAPI(("login/verify-otp"), request);
+    return (OTPAuthenticateResponse.fromJson(response));
+  }
 
-
+  Future<dynamic> profile (Map<String, dynamic> request) async {
+    var response = await callAPI(("you"), request);
+    return response['data'];
+  }
+  Future<InitResponse> initData (Map<String, dynamic> request) async {
+    var response = await callAPI(("init"), request);
+    return(InitResponse.fromJson(response)) ;
+  }
 }
 
 

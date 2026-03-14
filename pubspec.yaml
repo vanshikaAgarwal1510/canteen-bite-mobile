@@ -42,6 +42,8 @@ dependencies:
   intl: ^0.20.2
   permission_handler: ^12.0.1
   path_provider: ^2.1.5
+  sms_autofill: ^2.4.1
+  persistent_bottom_nav_bar: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -87,4 +89,8 @@ flutter:
     - family: poppins_light
       fonts:
         - asset: assets/fonts/Poppins-Light.ttf
+
+    - family: patrick
+      fonts:
+        - asset: assets/fonts/PatrickHand-Regular.ttf
           weight: 700
