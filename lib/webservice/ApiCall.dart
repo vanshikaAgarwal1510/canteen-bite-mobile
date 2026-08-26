@@ -139,7 +139,7 @@ class ApiCall {
   }
 
   Future<dynamic> profile (Map<String, dynamic> request) async {
-    var response = await callAPI(("you"), request);
+    var response = await callAPI(("profile"), request);
     return response['data'];
   }
   Future<InitResponse> initData (Map<String, dynamic> request) async {

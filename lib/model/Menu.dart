@@ -2,10 +2,10 @@ class MenuItem {
   final int itemId;
   final String itemName;
   final String itemDescription;
-  final double price;
+  final String price;
   final bool isAvailable;
   final String? imageUrl;
-  final double averageRating;
+  final int averageRating;
 
   MenuItem({
     required this.itemId,
@@ -22,7 +22,7 @@ class MenuItem {
       itemId: json['itemId'],
       itemName: json['itemName'],
       itemDescription: json['itemDescription'],
-      price: (json['price'] as num).toDouble(),
+      price: json['price'].toString() ,
       isAvailable: json['isAvailable'],
       imageUrl: json['imageUrl'],
       averageRating: json['averageRating'],

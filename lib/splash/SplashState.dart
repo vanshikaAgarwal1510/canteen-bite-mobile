@@ -1,10 +1,12 @@
 import 'dart:collection';
 
 import 'package:canteen_bite_mobile/login/Login.dart';
+import 'package:canteen_bite_mobile/profile/Profile.dart';
 import 'package:canteen_bite_mobile/webservice/response/InitResponse.dart';
 import 'package:flutter/material.dart';
 
 import '../Dashboard/Dashboard.dart';
+import '../Dashboard/you/You.dart';
 import '../utils/Constants.dart';
 import '../utils/GlobalData.dart';
 import '../utils/ShowErrorException.dart';
@@ -33,7 +35,10 @@ class SplashState extends State<Splash>{
       InitResponse response =  await apiCall.initData(request);
     if(response.userData==null){
       Navigator.popAndPushNamed(context, Login.routeName);
-    } else{
+    }else if (response.userData!.name =='New User'){
+      Navigator.popAndPushNamed(context, Profile.routeName);
+    }
+    else{
       Navigator.popAndPushNamed(context, Dashboard.routeName);
     }
     }  on NetworkException catch(networkException) {

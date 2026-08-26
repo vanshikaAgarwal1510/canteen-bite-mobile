@@ -13,7 +13,7 @@ class Category {
     required this.categoryName,
     required this.categoryDescription,
     required this.imageUrl,
-     this.items,
+     required this.items,
   });
 
   factory Category.fromJson(Map<String, dynamic> json) {

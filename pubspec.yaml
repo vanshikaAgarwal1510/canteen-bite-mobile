@@ -44,6 +44,8 @@ dependencies:
   path_provider: ^2.1.5
   sms_autofill: ^2.4.1
   persistent_bottom_nav_bar: ^6.2.1
+  carousel_slider: ^5.1.2
+  smooth_page_indicator: ^2.0.1
 
 dev_dependencies:
   flutter_test:

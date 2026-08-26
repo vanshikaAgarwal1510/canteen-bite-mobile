@@ -20,9 +20,7 @@ class Constants {
   static String BASE_URL = 'http://localhost:5123';
 
 
-  static RegExp validEmailRegex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-  static RegExp validatePasswordRegex = RegExp(r'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$');
-
+  static RegExp validEmailRegex =RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   static int EMAIL_AVAILABLITY_STATE_LOADING = 1;
   static int EMAIL_AVAILABLITY_STATE_AVAILABLE = 2;
   static int EMAIL_AVAILABLITY_STATE_NOT_AVAILABLE = 3;

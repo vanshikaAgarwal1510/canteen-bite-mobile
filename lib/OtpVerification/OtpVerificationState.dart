@@ -109,7 +109,7 @@ class OTPVerificationState extends State<OtpVerification>
       if(GlobalData.localDataStore.getNameOfUser()=="New User") {
         Navigator.popAndPushNamed(context, Profile.routeName);
       }else{
-        Navigator.popAndPushNamed(context, Dashboard.routeName);
+
       }
       }
 
