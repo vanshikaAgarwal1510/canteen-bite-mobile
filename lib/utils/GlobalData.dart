@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import '../dialog/DialogDoubleAction.dart';
 import '../dialog/DialogSingleAction.dart';
 import '../dialog/ProgressDialog.dart';
+import 'CartModel.dart';
 import 'LocalDataStore.dart';
 
 import 'Constants.dart';
@@ -39,6 +40,7 @@ class GlobalData {
   static DialogSingleAction? netWorkErrorDialog;
   static ProgressDialog? progressDialog;
   static bool isProgressDialogShowing = false;
+  static final CartModel cartModel = CartModel();
 
 
 

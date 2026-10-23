@@ -1,3 +1,4 @@
+import 'package:canteen_bite_mobile/model/Category.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'HomeState.dart';
@@ -19,3 +20,4 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => HomeState();
 }
+

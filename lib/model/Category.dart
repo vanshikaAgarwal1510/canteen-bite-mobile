@@ -4,8 +4,8 @@ import 'Menu.dart';
 class Category {
   final int categoryId;
   final String categoryName;
-  final String categoryDescription;
-  final String imageUrl;
+  final String? categoryDescription;
+  final String? imageUrl;
   final List<MenuItem>? items;
 
   Category({

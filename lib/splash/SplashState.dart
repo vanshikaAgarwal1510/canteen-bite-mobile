@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert';
 
 import 'package:canteen_bite_mobile/login/Login.dart';
 import 'package:canteen_bite_mobile/profile/Profile.dart';
@@ -20,7 +21,9 @@ class SplashState extends State<Splash>{
   void initState() {
     super.initState();
     GlobalData.localDataStore.getAwaitInstance();
-    initData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      initData();
+    });
   }
 
   Future<void> initData() async {
@@ -33,7 +36,15 @@ class SplashState extends State<Splash>{
 
     try {
       InitResponse response =  await apiCall.initData(request);
-    if(response.userData==null){
+
+      List<String> recommendList = response.recommends.map((item)=>jsonEncode(item)).toList();
+     GlobalData.localDataStore.setRecommendItems(recommendList);
+
+      List<String> menuList = response.categories.map((item)=>jsonEncode(item)).toList();
+      GlobalData.localDataStore.setMenu(menuList);
+
+
+      if(response.userData==null){
       Navigator.popAndPushNamed(context, Login.routeName);
     }else if (response.userData!.name =='New User'){
       Navigator.popAndPushNamed(context, Profile.routeName);
@@ -55,6 +66,7 @@ class SplashState extends State<Splash>{
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
    return Scaffold(

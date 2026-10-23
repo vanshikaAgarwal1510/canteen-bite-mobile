@@ -213,6 +213,41 @@ class LocalDataStore {
     }
   }
 
+  void setRecommendItems(List<String> recommend_item) async {
+    await localStorage?.setStringList("recommend_item", recommend_item);
+  }
+
+  List<String>? getRecommendItems() {
+    if ((localStorage?.getStringList("recommend_item") == null)) {
+      return [];
+    } else {
+      return (localStorage?.getStringList("recommend_item"));
+    }
+  }
+  void setMenu(List<String> menu) async {
+    await localStorage?.setStringList("menu", menu);
+  }
+
+  List<String>? getMenu() {
+    if ((localStorage?.getStringList("menu") == null)) {
+      return [];
+    } else {
+      return (localStorage?.getStringList("menu"));
+    }
+  }
+  void setCart(List<String> cart_list ) async {
+    await localStorage?.setStringList("cart_list", cart_list);
+  }
+
+  List<String>? getCartList() {
+    if ((localStorage?.getStringList("cart_list") == null)) {
+      return [];
+    } else {
+      return (localStorage?.getStringList("cart_list"));
+    }
+  }
+
+
   void setAppSignature(String app_signature) async {
     await localStorage?.setString("app_signature", app_signature);
   }
@@ -225,6 +260,7 @@ class LocalDataStore {
       return (localStorage?.getString("app_signature"));
     }
   }
+
 
   void logoutUser() {
     setUserMobile(Constants.BLANK);

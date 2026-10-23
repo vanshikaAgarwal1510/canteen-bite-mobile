@@ -2,13 +2,17 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:canteen_bite_mobile/webservice/response/InitResponse.dart';
+import 'package:canteen_bite_mobile/webservice/response/MenuResponse.dart';
 import 'package:canteen_bite_mobile/webservice/response/OTPAuthenticateResponse.dart';
+import 'package:canteen_bite_mobile/webservice/response/OrderListResponse.dart';
+import 'package:canteen_bite_mobile/webservice/response/PaymentMethodResponse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
+import '../model/Order.dart';
 import '../utils/GlobalData.dart';
 import '../utils/network/NetworkException.dart';
 import '../utils/network/NetworkUtil.dart';
@@ -16,7 +20,10 @@ import '../utils/network/NetworkUtil.dart';
 
 
 class ApiCall {
-  final String BASEURL = "http://10.0.2.2:5123/api/";
+  //final String BASEURL = "http://10.0.2.2:5123/api/";
+ // final String BASEURL = "http://localhost:5123/api/";
+  static const String BASEURL = 'http://10.0.3.2:5123/api/';
+
   final String BASEURL_GOOGLE_API = "https://maps.googleapis.com/maps/api/";
 
   Future<dynamic> callAPI(String url, Map<String, dynamic> request) async {
@@ -145,6 +152,34 @@ class ApiCall {
   Future<InitResponse> initData (Map<String, dynamic> request) async {
     var response = await callAPI(("init"), request);
     return(InitResponse.fromJson(response)) ;
+  }
+  Future<MenuResponse> fetchMenu (Map<String, dynamic> request) async {
+    var response = await callAPI(("menu"), request);
+    return(MenuResponse.fromJson(response)) ;
+  }
+  Future<PaymentMethodResponse> fetchPaymentMethod (Map<String, dynamic> request) async {
+    var response = await callAPI(("init/get-payment-method"), request);
+    return (PaymentMethodResponse.fromJson(response));
+  }
+  Future<dynamic> validateCoupon (Map<String, dynamic> request) async {
+    var response = await callAPI(("coupons"), request);
+    return response;
+  }
+  Future<dynamic> checkOrderAvailablity (Map<String, dynamic> request) async {
+    var response = await callAPI(("check-order"), request);
+    return response;
+  }
+  Future<dynamic> placeOrder (Map<String, dynamic> request) async {
+    var response = await callAPI(("place-order"), request);
+    return response;
+  }
+  Future<OrderListResponse> fetchOrderList (Map<String, dynamic> request) async {
+    var response = await callAPI(("my-order"), request);
+    return (OrderListResponse.fromJson(response));
+  }
+  Future<OrderModel> fetchOrderDetail (Map<String, dynamic> request) async {
+    var response = await callAPI(("my-order/details"), request);
+    return (OrderModel.fromJson(response['data']));
   }
 }
 

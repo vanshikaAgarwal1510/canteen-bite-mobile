@@ -17,7 +17,7 @@ class Constants {
   static bool SEND_OTP = true;
   static String DEFAULT_TOKEN ="ae4ca383492084d4e285f0477662a499";
   static String apiKey="campusBite@123";
-  static String BASE_URL = 'http://localhost:5123';
+  static String BASE_URL = "http://10.0.3.2:5123";
 
 
   static RegExp validEmailRegex =RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");

@@ -1,16 +1,19 @@
 import 'package:canteen_bite_mobile/model/Category.dart';
+import 'package:canteen_bite_mobile/model/Menu.dart';
 import 'package:canteen_bite_mobile/model/User.dart';
 
 class InitResponse {
   int status;
   String message;
   List<Category> categories;
+  List<MenuItem> recommends;
   User? userData;
 
   InitResponse({
     required this.status,
     required this.message,
     required this.categories,
+    required this.recommends,
     this.userData,
   });
 
@@ -18,6 +21,7 @@ class InitResponse {
 
     List<Category> categories = [];
     User? userData;
+    List<MenuItem> recommends =[];
 
     if (json['data'] != null) {
 
@@ -30,6 +34,11 @@ class InitResponse {
       if (json['data']['user'] != null) {
         userData = User.fromJson(json['data']['user']);
       }
+      if (json['data']['recommendMenu'] != null) {
+        recommends = (json['data']['recommendMenu'] as List)
+            .map((e) => MenuItem.fromJson(e))
+            .toList();
+      }
 
     }
 
@@ -38,6 +47,7 @@ class InitResponse {
       message: json['message'],
       categories: categories,
       userData: userData,
+      recommends: recommends
     );
   }
 }
