@@ -6,11 +6,13 @@ import 'package:canteen_bite_mobile/webservice/response/MenuResponse.dart';
 import 'package:canteen_bite_mobile/webservice/response/OTPAuthenticateResponse.dart';
 import 'package:canteen_bite_mobile/webservice/response/OrderListResponse.dart';
 import 'package:canteen_bite_mobile/webservice/response/PaymentMethodResponse.dart';
+import 'package:canteen_bite_mobile/webservice/response/WalletTransactionResponse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../model/Order.dart';
 import '../utils/GlobalData.dart';
@@ -117,6 +119,53 @@ class ApiCall {
       throw Exception("Some Error Occurred.");
     }
   }
+  Future<File> callAPIForFile(String url, Map<String, dynamic> request,String fileName) async {
+
+    try {
+
+      if(await NetworkUtil.isConnected()){
+
+        Map<String, String> headers = {
+          "Content-Type": "application/json",
+          'Accept': 'application/json'
+        };
+
+        headers.addIf(GlobalData.localDataStore.getAuthToken()!.isNotEmpty, "Authorization", "Bearer ${GlobalData.localDataStore.getAuthToken()}");
+
+        printRequest(url, request);
+
+        final response = await http.post(Uri.parse("$BASEURL$url"),
+            headers: headers,
+            body: jsonEncode(request));
+
+        printResponse(url, response.body);
+
+
+        if (response.statusCode == 200) {
+          final directory = await getApplicationDocumentsDirectory();
+
+          final file = File(
+           // '${directory.path}/',
+            '${directory.path}/$fileName',
+          );
+
+          await file.writeAsBytes(response.bodyBytes, flush: true);
+
+          return file;
+
+      } else {
+        throw Exception(
+          'Failed to download file: ${response.statusCode}',
+        );
+      }}else{throw NetworkException();}
+    } on NetworkException catch(networkException) {
+      rethrow;
+    } on Exception {
+      throw Exception("Some Error Occurred.");
+    }
+
+  }
+
 
   Future<void> printRequest(String url, Map<String, dynamic> request) async {
     if (kDebugMode) {
@@ -180,6 +229,22 @@ class ApiCall {
   Future<OrderModel> fetchOrderDetail (Map<String, dynamic> request) async {
     var response = await callAPI(("my-order/details"), request);
     return (OrderModel.fromJson(response['data']));
+  }
+  Future<File> downloadInvoice (Map<String, dynamic> request,String fileName) async {
+    File response = await callAPIForFile(("invoice/get-invoice"), request,fileName);
+    return response;
+  }
+  Future<WalletTransactionResponse> fetchWalletDetails(Map<String, dynamic> request) async {
+    var response = await callAPI(("wallet/history"), request);
+    return (WalletTransactionResponse.fromJson(response));
+  }
+  Future<dynamic> fetchFAQ (Map<String, dynamic> request) async {
+    var response = await callAPI(("faq/get-faqList"), request);
+    return response;
+  }
+  Future<dynamic> rateItem (Map<String, dynamic> request) async {
+    var response = await callAPI(("ratings"), request);
+    return response;
   }
 }
 

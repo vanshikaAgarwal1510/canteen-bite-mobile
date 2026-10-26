@@ -24,7 +24,7 @@ class DialogDoubleAction extends Dialog {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       elevation: 10,
       child: SizedBox(
-        width: (MediaQuery.sizeOf(context).width > 620) ? 350 : MediaQuery.sizeOf(context).width - 150,
+        width: (MediaQuery.sizeOf(context).width > 620) ? 400 : MediaQuery.sizeOf(context).width - 100,
         child: Container(
           decoration: BoxDecoration(
             color: Color(0xFFF6F7F9),
@@ -39,7 +39,7 @@ class DialogDoubleAction extends Dialog {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontFamily: "poppins_semibold",
+                    fontFamily: "play_bold",
                     fontSize: 16,
                     color: Colors.black,
                   ),
@@ -48,11 +48,11 @@ class DialogDoubleAction extends Dialog {
                 Text(
                   message,
                   style: const TextStyle(
-                    fontFamily: "poppins",
+                    fontFamily: "manrope",
                     fontSize: 16,
                     color: Colors.black,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: 25),
                 Row(
@@ -65,7 +65,7 @@ class DialogDoubleAction extends Dialog {
                         style: OutlinedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           side: const BorderSide(color: Color(0xFFFE9D1D), width: 1.0,),
-                          padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+                          padding: EdgeInsets.fromLTRB(25, 10, 15, 10),
                           minimumSize: Size(100, 50),
                           textStyle: TextStyle(fontSize: 18),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
@@ -73,16 +73,16 @@ class DialogDoubleAction extends Dialog {
                         child: Text(
                           buttonTextLeft,
                           style: TextStyle(
-                            fontFamily: "poppins_bold",
+                            fontFamily: "poppins_semibold",
                             fontSize: 18.0, // Set font size
                             color: Color(0xFF2D2D2D), // Set font color
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.height < 700 ? 15 : 20),
+                    SizedBox(width: MediaQuery.of(context).size.height < 700 ? 13 : 15),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: ElevatedButton(
                         onPressed: onPressedRight,
                         style: ButtonStyle(
@@ -90,14 +90,14 @@ class DialogDoubleAction extends Dialog {
                           minimumSize: WidgetStateProperty.all(const Size(100, 50)),
                           backgroundColor: WidgetStateProperty.all<Color>(const Color(0xFFFE9D1D)),
                           foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
-                          padding: WidgetStateProperty.all<EdgeInsetsGeometry>(const EdgeInsets.fromLTRB(25, 10, 25, 10)),
+                          padding: WidgetStateProperty.all<EdgeInsetsGeometry>(const EdgeInsets.fromLTRB(15, 10, 10, 10)),
                           shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))),
                           textStyle: WidgetStateProperty.all<TextStyle>(const TextStyle(fontSize: 18)),
                         ),
                         child: Text(
                           buttonTextRight,
                           style: TextStyle(
-                            fontFamily: "poppins_bold",
+                            fontFamily: "poppins_semibold",
                             fontSize: 18.0, // Set font size
                             color: Colors.white, // Set font color
                           ),

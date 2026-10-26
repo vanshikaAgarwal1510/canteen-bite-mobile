@@ -34,7 +34,7 @@ class ResendOTPView extends AnimatedWidget {
           //"Resend OTP in ",
           style: TextStyle(
             fontFamily: "Rethink_semibold",
-            fontSize: 45 / MediaQuery.of(context).devicePixelRatio, // Set font size
+            fontSize: 25 / MediaQuery.of(context).devicePixelRatio, // Set font size
             color: Color(0xFFFE9D1D), // Set font color
           ),
         )

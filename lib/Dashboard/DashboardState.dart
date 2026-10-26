@@ -109,7 +109,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                   onTap: onPageSelected,
                   labelStyle: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF105EF5),
+                    color: Color(0xFF779830),
                     fontFamily: "manrope_semibold",
                   ),
                   unselectedLabelStyle: TextStyle(
@@ -120,11 +120,11 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                   labelPadding: EdgeInsets.symmetric(horizontal: 4.0),
                   enableFeedback: true,
                   indicatorAnimation: TabIndicatorAnimation.elastic,
-                  indicatorColor: Color(0xFF105EF5),
+                  indicatorColor: Color(0xFF779830),
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicator: BoxDecoration(
                     border: Border(
-                      top: BorderSide(color: Color(0xFF105EF5), width: 2.0),
+                      top: BorderSide(color: Color(0xFF779830), width: 2.0),
                     ),
                   ),
                   tabs: [

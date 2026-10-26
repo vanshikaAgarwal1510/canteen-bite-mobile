@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import '../../contact/Contact.dart';
 import '../../edit_profile/EditProfile.dart';
 import '../../help/Help.dart';
+import '../../login/Login.dart';
 import '../../utils/GlobalData.dart';
 import 'You.dart';
 
@@ -70,71 +71,58 @@ class YouState extends State<You> {
           Column(
             //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                margin: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Color(0xFFFE9D1D)),
-                  borderRadius: BorderRadius.circular(14),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 3,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        border: Border.all(
-                          color: Color(0xFFFE9D1D),
-                          width: 1.5,
-                        ),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        child: Image.asset("assets/images/avatar.jpg"),
+              SizedBox(height: 10),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      border: Border.all(
+                        color: Color(0xFFFE9D1D),
+                        width: 1.5,
                       ),
                     ),
-                    SizedBox(height: 5),
-                    Text(
-                      GlobalData.localDataStore.getNameOfUser() ?? "",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: "poppins_semibold",
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      child: Image.asset("assets/images/avatar.jpg"),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    GlobalData.localDataStore.getNameOfUser() ?? "",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "poppins_semibold",
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 15),
+                      Text(
+                        "+${GlobalData.localDataStore.getUserMobile()}",
+                        style: TextStyle(fontSize: 14, fontFamily: "poppins"),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(width: 15),
-                        Text(
-                          "+${GlobalData.localDataStore.getUserMobile()}",
-                          style: TextStyle(fontSize: 14, fontFamily: "poppins"),
+                      SizedBox(width: 10),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, EditProfile.routeName);
+                        },
+                        child: Image.asset(
+                          "assets/images/icon_edit.png",
+                          height: 15,
+                          width: 15,
                         ),
-                        SizedBox(width: 10),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, EditProfile.routeName);
-                          },
-                          child: Image.asset(
-                            "assets/images/icon_edit.png",
-                            height: 15,
-                            width: 15,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
+              SizedBox(height: 20),
+              Divider(color: Colors.grey,),
               optionTile(
                 icon: "assets/images/icon_wallet.png",
                 title: "CampusBite Wallet",
@@ -142,49 +130,41 @@ class YouState extends State<You> {
                   Navigator.pushNamed(context, Wallet.routeName);
                 },
               ),
+              Divider(color: Colors.grey,),
               optionTile(
                 icon: "assets/images/icon_payment.png",
                 title: "Payment Methods",
                 onTap: () { Navigator.pushNamed(context, PaymentsMethod.routeName);},
               ),
+              Divider(color: Colors.grey,),
+
               optionTile(
                 icon: "assets/images/icon_contact.png",
                 title: "Contact Us",
                 onTap: () { Navigator.pushNamed(context, Contact.routeName);},
               ),
+              Divider(color: Colors.grey,),
+
               optionTile(
                 icon: "assets/images/icon_help.png",
                 title: "Help and FAQs",
                 onTap: () { Navigator.pushNamed(context, Help.routeName);},
               ),
-              SizedBox(height: 100,),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 7,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      backgroundColor: Color(0xFF16171B),
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: () {
-
-                    },
-                    child: Text(
-                      "Logout",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: "poppins_semibold",
-                      ),
-                    ),
-                  ),
-                ),
+              Divider(color: Colors.grey,),
+              optionTile(
+                icon: "assets/images/logout.png",
+                title: "Logout",
+                onTap: () {
+                  GlobalData.showDoubleActionDialog(context, "Are you sure you want to logout?", "Logout", "Cancel" ,
+                          (){
+                    Navigator.pushNamedAndRemoveUntil(context, Login.routeName, (route) => false);
+                    GlobalData.localDataStore.logoutUser();
+                  }, (){
+                    Navigator.pop(context);
+                      });
+                },
               ),
+              Divider(color: Colors.grey,),
             ],
           ),
         ],
@@ -197,34 +177,20 @@ class YouState extends State<You> {
     required String title,
     required VoidCallback onTap,
   }) {
-    return Container(
-      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-      padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color:  Color(0xFFFE9D1D)),
-        borderRadius: BorderRadius.circular(14),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 3,
-              offset: Offset(0, 2),
-            ),
-          ]
+    return ListTile(
+      minVerticalPadding: 10,
+      contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 0),
+      leading: Image.asset(
+        icon,
+        height: 30,
+        width: 30,
       ),
-      child: ListTile(
-        leading: Image.asset(
-          icon,
-          height: 30,
-          width: 30,
-        ),
-        title: Text(
-          title,
-          style: const TextStyle(fontFamily: 'manrope_semibold', fontSize: 15),
-        ),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 18),
-        onTap: onTap,
+      title: Text(
+        title,
+        style: const TextStyle(fontFamily: 'poppins_semibold', fontSize: 15),
       ),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 18),
+      onTap: onTap,
     );
   }
 }

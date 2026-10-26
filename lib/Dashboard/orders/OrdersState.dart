@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../../model/Cart.dart';
 import '../../model/Order.dart';
 import '../../order_detail/OrderDetail.dart';
 import '../../utils/Constants.dart';
@@ -13,6 +15,7 @@ import '../../utils/GlobalData.dart';
 import '../../utils/ShowErrorException.dart';
 import '../../utils/network/NetworkException.dart';
 import '../../webservice/ApiCall.dart';
+import '../cart/Cart.dart';
 import 'Orders.dart';
 
 class OrdersState extends State<Orders> {
@@ -50,6 +53,51 @@ class OrdersState extends State<Orders> {
       sum += item.averageRating;
     }
     return sum / order.items.length;
+  }
+  void reorder(OrderModel order) {
+    final cart = GlobalData.cartModel;
+    GlobalData.showDoubleActionDialog(context,
+      "Are you sure you want to reorder this order?",
+      "Continue", "Cancel",
+          () {
+        Navigator.pop(context);
+        if (cart.items.isNotEmpty) {
+          GlobalData.showDoubleActionDialog(context,
+            "You have items in your cart.Would you like to replace item or add to existing cart?",
+            "Replace", "Add to cart",
+                () {cart.clearCart();reorderItem(order);},
+                () {reorderItem(order);},
+          );
+        } else {reorderItem(order);}
+      },
+          () {
+        Navigator.pop(context);
+      },
+    );
+  }
+  void reorderItem(OrderModel order) {
+    final cart = GlobalData.cartModel;
+    for (final item in order.items) {
+      cart.addItem(
+        CartItem(
+          itemId: item.id,
+          itemName: item.name,
+          price: item.price,
+          imageUrl: item.imageUrl,
+          quantity: item.quantity,
+        ),
+      );
+    }
+    Navigator.pop(context);
+    Fluttertoast.showToast(
+      msg: "Item added to cart.",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black87,
+      textColor: Colors.white,
+      fontSize: 14.0,
+    );
+    Navigator.pushNamed(context, Cart.routeName);
   }
 
   @override
@@ -324,7 +372,7 @@ class OrdersState extends State<Orders> {
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
-                                      print("reorder clicked");
+                                      reorder(order_list[index]);
                                     },
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,

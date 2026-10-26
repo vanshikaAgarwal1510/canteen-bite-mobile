@@ -1,4 +1,5 @@
 import 'package:canteen_bite_mobile/Dashboard/Dashboard.dart';
+import 'package:canteen_bite_mobile/Dashboard/cart/Cart.dart';
 import 'package:canteen_bite_mobile/Menu/MenuPage.dart';
 import 'package:canteen_bite_mobile/OtpVerification/OtpVerification.dart';
 import 'package:canteen_bite_mobile/contact/Contact.dart';
@@ -23,6 +24,7 @@ class RouteRegistry {
       OtpVerification.routeName: (context) => const OtpVerification(),
       Profile.routeName: (context) => const Profile(),
       Dashboard.routeName : (context) => const Dashboard(),
+      Cart.routeName:(context) => const Cart(),
       MenuPage.routeName:(context) => const MenuPage(),
       Payment.routeName:(context) => const Payment(),
       OrdersDetail.routeName:(context) => const OrdersDetail(),
